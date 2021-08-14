@@ -57,8 +57,13 @@ modifier onlyAfter(uint _time) { require(block.timestamp > _time); _; }
 
   }
 
-  function withdraw() {
-  
+  function withdraw() public {
+    uint amount = pendingReturns[msg.sender];
+    if (amount > 0){
+      pendingReturns[msg.sender] = 0;
+
+      payable(msg.sender).transfer(amount);
+    }
   }
   
   function placeBid() {
