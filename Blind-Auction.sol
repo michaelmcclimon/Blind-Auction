@@ -14,9 +14,24 @@ uint public biddingEnd;
 uint public revealEnd;
 bool public ended;
 
+mapping(address => Bid[]) public bids;
+
+address public highestBidder;
+uint public highestBid;
+
+mapping(address => uint) pendingReturns;
+
   // Events
+  event AuctionEnded(address winner, uint highestBid);
+
+  // Modifiers
+
 
   // Functions
+
+  constructor() {
+    
+  }
 
   function genereateBlindedBidBytes32() {
 
