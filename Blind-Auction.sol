@@ -41,8 +41,8 @@ modifier onlyAfter(uint _time) { require(block.timestamp > _time); _; }
     revealEnd = biddingEnd + _revealTime;
   }
 
-  function genereateBlindedBidBytes32() {
-
+  function genereateBlindedBidBytes32(uint value, bool fake) public view returns (bytes32) {
+    return keccak256(abi.encodePacked(value, fake));
   }
 
   function bid() {
