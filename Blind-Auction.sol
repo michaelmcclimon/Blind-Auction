@@ -45,8 +45,11 @@ modifier onlyAfter(uint _time) { require(block.timestamp > _time); _; }
     return keccak256(abi.encodePacked(value, fake));
   }
 
-  function bid() {
-
+  function bid(bytes32 _blindedBid) public payable onlyBefore(biddingEnd) {
+    bids[msg.sender].push(Bid({
+      blindedBid: _blindedBid,
+      deposit: msg.value
+    }));
   }
 
   function reveal() {
