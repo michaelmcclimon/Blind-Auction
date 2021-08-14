@@ -6,6 +6,8 @@ contract BlindAuction {
   
   }
   
-  f
+  function placeBid() {
+  
+  }
 
 }
