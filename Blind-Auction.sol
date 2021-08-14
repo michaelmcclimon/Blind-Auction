@@ -25,12 +25,14 @@ mapping(address => uint) pendingReturns;
   event AuctionEnded(address winner, uint highestBid);
 
   // Modifiers
+modifier onlyBefore(uint _time) { require(block.timestamp < _time); _; }
+modifier onlyAfter(uint _time) { require(block.timestamp > _time); _; }
 
 
   // Functions
 
   constructor() {
-    
+
   }
 
   function genereateBlindedBidBytes32() {
