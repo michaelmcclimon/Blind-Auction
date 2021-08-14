@@ -31,8 +31,14 @@ modifier onlyAfter(uint _time) { require(block.timestamp > _time); _; }
 
   // Functions
 
-  constructor() {
-
+  constructor(
+    uint _biddingTime,
+    uint _revealTime,
+    address payable _beneficiary
+  ){
+    beneficiary = _beneficiary;
+    biddingEnd = block.timestamp + _biddingTime;
+    revealEnd = biddingEnd + _revealTime;
   }
 
   function genereateBlindedBidBytes32() {
