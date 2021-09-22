@@ -56,8 +56,9 @@ modifier onlyAfter(uint _time) { require(block.timestamp > _time); _; }
     
   }
 
-  function auctionEnd() {
-
+  function auctionEnd() public payable onlyAfter(revealEnd) {
+    require(!ended, "Auction still going on!");
+    
   }
 
   function withdraw() public {
