@@ -52,8 +52,16 @@ modifier onlyAfter(uint _time) { require(block.timestamp > _time); _; }
     }));
   }
 
-  function reveal() {
-    
+  function reveal(uint[] memory _values, bool[] memory _fake) public onlyAfter(biddingEnd) onlyBefore(revealEnd) {
+    uint length = bids[msg.sender].length;
+    require(_values.length == length);
+    require(_fake.length == length);
+
+    uint refund;
+    for (uint i=0; i<length; i++) {
+      Bid storage bidToCheck = bids[msg.sender][i];
+      (uint value, bool fake) = (_values[i], _fake[i]);
+    }
   }
 
   function auctionEnd() public payable onlyAfter(revealEnd) {
