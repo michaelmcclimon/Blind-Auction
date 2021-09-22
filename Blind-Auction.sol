@@ -66,9 +66,13 @@ modifier onlyAfter(uint _time) { require(block.timestamp > _time); _; }
       }
       refund += bidToCheck.deposit;
       if(!fake && bidToCheck.deposit >= value) {
-        placeBid(msg.sender, value);
+        if (placeBid(msg.sender, value)) {
+          refund -= value;
+        }
       }
+      bidToCheck.blindedBid = bytes32(0);
     }
+    payable(msg.sender).transfer(refund);
   }
 
   function auctionEnd() public payable onlyAfter(revealEnd) {
