@@ -58,7 +58,9 @@ modifier onlyAfter(uint _time) { require(block.timestamp > _time); _; }
 
   function auctionEnd() public payable onlyAfter(revealEnd) {
     require(!ended, "Auction still going on!");
-    
+    emit AuctionEnded(highestBidder, highestBid);
+    ended = true; //Auction ending
+    beneficiary.transfer(highestBid); //Highest bid will recive the Auction Item.
   }
 
   function withdraw() public {
