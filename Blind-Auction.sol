@@ -72,8 +72,16 @@ modifier onlyAfter(uint _time) { require(block.timestamp > _time); _; }
     }
   }
   
-  function placeBid() {
-  
+  function placeBid(address bidder, uint value) internal returns(bool success) {
+    if (value <= highestBid) {
+      return false;
+    }
+    if (highestBidder != address(0)) {
+        pendingReturns[highestBidder] += highestBid;
+    }
+    highestBid = value; //making the new higest bidder the new value.
+    highestBidder = bidder;
+    return true; //reuturning the success bool for the function
   }
 
 }
