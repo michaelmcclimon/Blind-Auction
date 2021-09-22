@@ -61,6 +61,13 @@ modifier onlyAfter(uint _time) { require(block.timestamp > _time); _; }
     for (uint i=0; i<length; i++) {
       Bid storage bidToCheck = bids[msg.sender][i];
       (uint value, bool fake) = (_values[i], _fake[i]);
+      if (bidToCheck.blindedBid != keccak256(abi.encodePacked(value, fake))) {
+        continue;
+      }
+      refund += bidToCheck.deposit;
+      if(!fake && bidToCheck.deposit >= value) {
+        placeBid(msg.sender, value);
+      }
     }
   }
 
